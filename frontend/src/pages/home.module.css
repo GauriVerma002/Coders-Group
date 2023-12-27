@@ -1,0 +1,25 @@
+
+
+.text{
+    font-size: 22px;
+    line-height: 1.6;
+    color:azure;
+    margin-bottom: 30px;
+}
+
+.cardWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.signinWrapper
+{
+    margin-top: 20px;
+}
+
+.hasInvite{
+    color: #fff;
+}
+

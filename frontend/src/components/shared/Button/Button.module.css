@@ -1,0 +1,22 @@
+.button{
+    background-color: hsl(331, 68%, 41%);
+    border-radius: 18px;
+    border:none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: bold;
+    cursor:pointer;
+    height:40px;
+    width: 160px;
+    color:#fff;
+    padding: 10px 20px;
+    transition: all .3s ease-in-out;
+
+}
+
+.button:hover{
+    background-color: hsl(331deg 100% 28.35%);
+}
