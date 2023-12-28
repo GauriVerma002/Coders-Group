@@ -17,11 +17,8 @@ const Authenticate = () => {
         setStep(step+ 1);
     }
 
-  return (
-    <div>
-        <Step onClick = {onClick} />
-    </div>
-  )
+  return  <Step onClick = {onClick} />;
+   
 };
 
 export default Authenticate ;

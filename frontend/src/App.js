@@ -5,12 +5,13 @@ import Home from './pages/home.jsx';
 import Navigation from './components/shared/Navigation/Navigation.jsx';
 import Authenticate from './pages/Athenticate/Authenticate.jsx';
 import Activate from './pages/Activate/Activate.jsx';
+import Rooms from './pages/Rooms/Rooms.jsx';
 
-const isAuth = true;
+
+const isAuth = false;
 const user ={
-  activated : true,
+  activated : false,
 }
-
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
             <SemiProtectedRoute>
               <Activate />
             </SemiProtectedRoute>
+          }
+        />
+        <Route
+          path="/rooms"
+          element={
+            <ProtectedRoute>
+              <Rooms />
+            </ProtectedRoute>
           }
         />
       </Routes>
@@ -75,5 +84,25 @@ const SemiProtectedRoute =({children, ...rest}) =>{
     </Route>)
 };
 
+const ProtectedRoute =({children, ...rest}) =>{
+  return (
+   <Route {...rest}
+      render={({location}) => {
+       return (
+            !isAuth ?(
+            <Navigate to={{
+                     pathname: '/',
+                     state: { from: location}
+           }}/>
+           ): isAuth && !user.activated ?
+           (<Navigate to ={{
+            pathname : '/activate',
+            state: { from: location}
+        }}/>):
+            ( children)
+         );
+      }}>
+   </Route>)
+};
 export default App;
 
