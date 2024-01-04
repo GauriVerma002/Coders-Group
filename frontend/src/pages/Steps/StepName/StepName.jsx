@@ -1,12 +1,12 @@
 import React from 'react'
 
-const StepName = ({onClick}) => {
+const StepName = ({onNext}) => {
   return (
     <>
     <div>Name Component</div>
-    <button onClick={onClick}>Next</button>
+    <button onClick={onNext}>Next</button>
     </>
   );
 }
 
-export default StepName
+export default StepName;

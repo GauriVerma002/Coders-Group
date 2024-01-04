@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './home.module.css';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Card from '../components/shared/Card/Card.jsx';
 import Button from '../components/shared/Button/Button.jsx';
 
 const Home = () => {
-    // const signInLinkStyle = {
-    //     color : '#0077ff',
-    //     fontWeight: 'bold',
-    //     textDecoration: 'none',
-    //     marginLeft : '10px'
-    // };
+    const signInLinkStyle = {
+        color : '#0077ff',
+        fontWeight: 'bold',
+        textDecoration: 'none',
+        marginLeft : '10px'
+    };
 const Navigate = useNavigate();
 function startRegister()
 {

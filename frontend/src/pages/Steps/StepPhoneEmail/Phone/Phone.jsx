@@ -4,16 +4,18 @@ import Button from '../../../../components/shared/Button/Button.jsx';
 import TextInput from '../../../../components/shared/TextInput/TextInput.jsx'
 import styles from '../StepPhoneEmail.module.css';
 import {sendOtp} from '../../../../http/index.js';
+import {useDispatch} from 'react-redux'; 
+import {setOtp} from '../../../../store/authSlice.js'
 
-const Phone = ({ onClick }) => {
+const Phone = ({ onNext }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  const dispatch = useDispatch();
 
   async function submit(){
-       
-    const res = await sendOtp();
-    console.log(res);
-    // onclick();
+    const { data } = await sendOtp({ phone: phoneNumber });
+    console.log(data);
+    dispatch(setOtp({phone:data.phone, hash: data.hash}));
+    onNext();
   }
   return (
 
