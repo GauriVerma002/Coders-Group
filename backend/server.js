@@ -1,11 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const DbConnect = require('./database');
 const router = require('./routes');
-const PORT = process.env.PORT || 5500;
+const cors = require('cors');
 
-DbConnect();
+const app = express();
+const corsOption = {
+    origin: ['http://localhost:3000'],
+};
+app.use(cors(corsOption));
+
+const PORT = process.env.PORT || 5500;
 
 app.use(express.json());
 app.use(router);
@@ -14,4 +19,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`)
+    DbConnect();
+});

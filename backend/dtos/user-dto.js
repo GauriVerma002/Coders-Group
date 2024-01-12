@@ -11,4 +11,5 @@ class UserDto {
         this.createdAt = user.createdAt;
      }
 }
+
 module.exports =UserDto;

@@ -19,7 +19,7 @@ class OtpService {
             {
                 to: phone,
                 from: process.env.SMS_FROM_NUMBER,
-                body: `Your codersgroup otp is ${otp}`,
+                body: `Your codersgroup OTP is ${otp}`,
             });
     }
 
