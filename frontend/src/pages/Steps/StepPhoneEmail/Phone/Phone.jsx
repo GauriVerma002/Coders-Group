@@ -17,8 +17,8 @@ const Phone = ({ onNext }) => {
     dispatch(setOtp({phone:data.phone, hash: data.hash}));
     onNext();
   }
-  return (
 
+  return (
     <Card title="Enter your phone number" icon="">
       <TextInput
         value={phoneNumber}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Rooms = () => {
   return (
@@ -6,6 +6,6 @@ const Rooms = () => {
       room component
     </div>
   )
-}
+};
 
 export default Rooms
