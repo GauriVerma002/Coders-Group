@@ -43,54 +43,61 @@ class AuthController {
     async verifyOtp(req, res) {
         const { otp, hash, phone } = req.body;
         try {
-        if (!otp || !hash || !phone) {
-            res.status(400).json({ message: 'All feilds are required!' });
-            return;
-        }
-
-        const [hashOtp, expires] = hash.split('.');
-        if (Date.now() > +expires) {
-            res.status(400).json({ message: 'OTP expired!' });
-            return;
-        }
-
-        const data = `${phone}.${otp}.${expires}`;
-
-        const isValid = otpService.verifyOtp(hashOtp, data);
-        if (!isValid) {
-            res.status(400).json({ message: 'Invalid OTP' })
-            return;
-        }
-        let user;
-
-        try {
-            user = await userService.findUser({ phone })
-            if (!user) {
-                user = await userService.createUser({ phone })
+            if (!otp || !hash || !phone) {
+                res.status(400).json({ message: 'All feilds are required!' });
+                return;
             }
-        } catch (err) {
-            console.log(err);
-            res.status(500).json({ message: 'db error' })
-            return;
+
+            const [hashOtp, expires] = hash.split('.');
+            if (Date.now() > +expires) {
+                res.status(400).json({ message: 'OTP expired!' });
+                return;
+            }
+
+            const data = `${phone}.${otp}.${expires}`;
+
+            const isValid = otpService.verifyOtp(hashOtp, data);
+            if (!isValid) {
+                res.status(400).json({ message: 'Invalid OTP' })
+                return;
+            }
+            let user;
+
+            try {
+                user = await userService.findUser({ phone })
+                if (!user) {
+                    user = await userService.createUser({ phone })
+                }
+            } catch (err) {
+                console.log(err);
+                res.status(500).json({ message: 'db error' })
+                return;
+            }
+
+            //token service
+            const { accessToken, refreshToken } = tokenService.generateTokens({
+                _id: user._id,
+                activated: false,
+            });
+
+            await tokenService.storeRefreshToken(refreshToken, user._id);
+
+            res.cookie('refreshToken', refreshToken, {
+                maxAge: 1000 * 60 * 60 * 24 * 30,
+                httpOnly: true,
+            });
+
+            res.cookie('accessToken', accessToken, {
+                maxAge: 1000 * 60 * 60 * 24 * 30,
+                httpOnly: true,
+            });
+
+            const userDto = new UserDto(user);
+            res.json({ user: userDto, auth: true });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
         }
-
-        //token service
-        const { accessToken, refreshToken } = tokenService.generateTokens({
-            _id: user._id,
-            activated: false,
-        });
-
-        res.cookie('refreshtoken', refreshToken,{
-            maxAge: 1000 * 60 * 60 * 24 * 30,
-            httpOnly: true,
-        });
-
-        const userDto = new UserDto(user);
-        res.json({ accessToken, user : userDto });
-    }catch (error){
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
     }
 }
 
