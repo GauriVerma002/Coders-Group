@@ -14,14 +14,14 @@ const StepOtp = () => {
   const [otp, setotp] = useState('');
   const dispatch = useDispatch();
   const { phone, hash } = useSelector((state) => state.auth.otp);
-    async function submit() {
-        try {
-            const { data } = await verifyOtp({ otp, phone, hash });
-            dispatch(setAuth(data));
-        } catch (err) {
-            console.log(err);
-        }
+  async function submit() {
+    try {
+      const { data } = await verifyOtp({ otp, phone, hash });
+      dispatch(setAuth(data));
+    } catch (err) {
+      console.log(err);
     }
+  }
   return (
     <>
       <div className={styles.cardWrapper}>

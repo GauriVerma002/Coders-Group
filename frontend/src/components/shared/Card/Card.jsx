@@ -8,7 +8,7 @@ const Card = ({ title, children }) => {
       <div className={styles.card}>
         <div className={styles.headingWrapper}>
           {/* <img src="/images/Emoji" alt=""/> */}
-          <h1 className={styles.heading}>{title}</h1>
+          {title && <h1 className={styles.heading}>{title}</h1>}
         </div>
         {children}
       </div>

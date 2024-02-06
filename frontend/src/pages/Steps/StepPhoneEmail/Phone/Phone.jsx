@@ -12,10 +12,14 @@ const Phone = ({ onNext }) => {
   const dispatch = useDispatch();
 
   async function submit(){
-    const { data } = await sendOtp({ phone: phoneNumber });
-    console.log(data);
-    dispatch(setOtp({phone:data.phone, hash: data.hash}));
-    onNext();
+    try {
+      const { data } = await sendOtp({ phone: phoneNumber });
+      console.log(data);
+      dispatch(setOtp({ phone: data.phone, hash: data.hash }));
+      onNext();
+    } catch (error) {
+      console.error("Error while sending OTP:", error.message);
+    }
   }
 
   return (

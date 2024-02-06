@@ -1,4 +1,4 @@
-const UserModel = require('../models/user-models');
+const UserModel = require('../models/user-model');
 class UserService {
     async findUser(filter){
         const user =await UserModel.findOne(filter);

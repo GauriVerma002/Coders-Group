@@ -7,9 +7,15 @@ import Authenticate from './pages/Athenticate/Authenticate.jsx';
 import Activate from './pages/Activate/Activate.jsx';
 import Rooms from './pages/Rooms/Rooms.jsx';
 import { useSelector } from 'react-redux';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh.js';
+import Loader from './components/shared/loaders/Loaders.js'
+import Room from './pages/Room/Room.jsx';
 
 function App() {
-  return (
+  const { loading } = useLoadingWithRefresh();
+  return loading ? (
+    <Loader message ="loading, please wait.."/>
+    ):(
     <Router>
       <Navigation />
       <Routes>
@@ -22,6 +28,9 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute />} >
           <Route element={<Rooms />} path="/rooms" />
+        </Route>
+        <Route element={<ProtectedRoute />} >
+          <Route element={<Room />} path="/room/:id" />
         </Route>
       </Routes>
     </Router>
